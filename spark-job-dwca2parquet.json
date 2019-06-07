@@ -1,6 +1,6 @@
 {
       "action" : "CreateSubmissionRequest",
-      "appArgs" : [ "/guoda/data/source=preston/data", "/guoda/data/source=preston/dwca4"],
+      "appArgs" : [ "/guoda/data/source=preston-amazon/data", "/guoda/data/source=preston-amazon/dwca"],
       "appResource" : "https://s3-us-west-2.amazonaws.com/guoda/idigbio-spark/iDigBio-LD-assembly-1.5.9.jar",
       "clientSparkVersion" : "2.0.1",
       "environmentVariables" : {
