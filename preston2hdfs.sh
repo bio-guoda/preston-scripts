@@ -7,20 +7,23 @@
 
 set -x
 
-PRESTON_VERSION=0.0.12
-PRESTON_REMOTE=https://deeplinker.bio
+PRESTON_VERSION=0.0.13
+#PRESTON_REMOTE=https://deeplinker.bio
+PRESTON_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data/
+HDFS_TARGET=/guoda/data/source=preston-amazon
+HDFS_TARGET_ESCAPED=$(echo $HDFS_TARGET | sed -e 's/\//\\\//g')
 
 wget https://github.com/bio-guoda/preston/releases/download/${PRESTON_VERSION}/preston.jar -O preston.jar
 
-# list available dataset provenance graph, using deeplinker.bio as remote if needed.
+# list available dataset provenance graph, using remote if needed.
 java -jar preston.jar ls --remote $PRESTON_REMOTE > /dev/null
 
-# verify existence and integrity of tracked content of biodiversity data graphs hosted by remote at deeplinker.bio 
+# verify existence and integrity of tracked content of biodiversity data graphs hosted by remote
 # expected outcome is a list of all tracked content with status "missing", because the content is not expected two be local.
 java -jar preston.jar verify --remote $PRESTON_REMOTE > verify.tsv
 
 # copy preston provenance to prov directory
-hdfs dfs -copyFromLocal -f data/ /guoda/data/source=preston/prov
+hdfs dfs -copyFromLocal -f data/ $HDFS_TARGET/prov
 
 # gather all preston tracked content
 cat verify.tsv | sort | uniq > verify_sorted.tsv
@@ -28,8 +31,9 @@ cat verify_sorted.tsv | grep deeplinker > verify_sort_remote.tsv
 cat verify_sorted.tsv | grep preston-archive > verify_sort_local.tsv
 join verify_sort_remote.tsv verify_sort_local.tsv > verify_sort_remote_local.tsv 
 
+
 # generate scripts to push preston tracked content into hdfs
-cat verify_sort_remote_local.tsv | cut -d ' ' -f2,3 | sed -e "s/file:\/.*\/data\//| hdfs dfs -put -p - \/guoda\/data\/source=preston\/data\//g" | sed -e "s/https/curl https/g" > upload.sh
+cat verify_sort_remote_local.tsv | cut -d ' ' -f2,3 | sed -e "s/file:\/.*\/data\//| hdfs dfs -put -p - $HDFS_TARGET_ESCAPED\/data\//g" | sed -e "s/https/curl https/g" > upload.sh
 split upload.sh -n3 --additional-suffix=.sh -d upload
 nohup bash upload00.sh &> upload00.log &
 nohup bash upload01.sh &> upload01.log &
