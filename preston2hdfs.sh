@@ -22,6 +22,9 @@ java -jar preston.jar ls --remote $PRESTON_REMOTE > /dev/null
 # expected outcome is a list of all tracked content with status "missing", because the content is not expected two be local.
 java -jar preston.jar verify --remote $PRESTON_REMOTE > verify.tsv
 
+hdfs dfs -mkdir -p $HDFS_TARGET/prov
+hdfs dfs -mkdir -p $HDFS_TARGET/data
+
 # copy preston provenance to prov directory
 hdfs dfs -copyFromLocal -f data/ $HDFS_TARGET/prov
 
