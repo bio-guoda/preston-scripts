@@ -8,14 +8,16 @@
 set -x
 
 PRESTON_VERSION=0.0.12
+PRESTON_REMOTE=https://deeplinker.bio
+
 wget https://github.com/bio-guoda/preston/releases/download/${PRESTON_VERSION}/preston.jar -O preston.jar
 
 # list available dataset provenance graph, using deeplinker.bio as remote if needed.
-java -jar preston.jar ls --remote https://deeplinker.bio/ > /dev/null
+java -jar preston.jar ls --remote $PRESTON_REMOTE > /dev/null
 
 # verify existence and integrity of tracked content of biodiversity data graphs hosted by remote at deeplinker.bio 
 # expected outcome is a list of all tracked content with status "missing", because the content is not expected two be local.
-java -jar preston.jar verify --remote https://deeplinker.bio/ > verify.tsv
+java -jar preston.jar verify --remote $PRESTON_REMOTE > verify.tsv
 
 # copy preston provenance to prov directory
 hdfs dfs -copyFromLocal -f data/ /guoda/data/source=preston/prov
