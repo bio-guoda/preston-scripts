@@ -12,6 +12,10 @@ PRESTON_VERSION=0.0.14
 PRESTON_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data/
 HDFS_TARGET=/guoda/data/source=preston-amazon
 HDFS_TARGET_ESCAPED=$(echo $HDFS_TARGET | sed -e 's/\//\\\//g')
+WORK_DIR=preston2hdfs.tmp
+
+mkdir -p $WORK_DIR
+cd $WORK_DIR
 
 wget https://github.com/bio-guoda/preston/releases/download/${PRESTON_VERSION}/preston.jar -O preston.jar
 
