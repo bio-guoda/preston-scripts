@@ -7,7 +7,7 @@
 
 set -x
 
-PRESTON_VERSION=0.0.13
+PRESTON_VERSION=0.0.14
 #PRESTON_REMOTE=https://deeplinker.bio
 PRESTON_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data/
 HDFS_TARGET=/guoda/data/source=preston-amazon
