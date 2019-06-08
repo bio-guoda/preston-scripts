@@ -10,7 +10,7 @@ Hadoop File System (HDFS) is a well-used distributed filesystem designed for par
 
 to use:
 
-0. start a terminal via https://jupiter.idigbio.org 
+0. start a terminal via https://jupyter.idigbio.org 
 1. clone this repository ```git clone https://github.com/bio-guoda/preston-scripts```
 2. ```cd preston-scripts```
 3. inspect ```./preston2hdfs.sh``` and change settings when needed.
