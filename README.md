@@ -9,6 +9,7 @@ Hadoop File System (HDFS) is a well-used distributed filesystem designed for par
 [preston2hdfs.sh](./preston2hdfs.sh) is a script to help migrate a Preston instance into HDFS. This is work in progress, so please be read the script before you use it.
 
 to use:
+
 0. start a terminal via https://jupiter.idigbio.org 
 1. clone this repository ```git clone https://github.com/bio-guoda/preston-scripts```
 2. ```cd preston-scripts```
