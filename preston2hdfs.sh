@@ -6,6 +6,7 @@
 #
 
 set -x
+set -o pipefail # see https://unix.stackexchange.com/a/73180
 
 PRESTON_VERSION=0.0.14
 #PRESTON_REMOTE=https://deeplinker.bio
