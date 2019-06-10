@@ -40,7 +40,7 @@ join verify_sort_remote.tsv verify_sort_local.tsv > verify_sort_remote_local.tsv
 
 
 # generate scripts to push preston tracked content into hdfs
-cat verify_sort_remote_local.tsv | cut -d ' ' -f2,6 | sed -e "s/file:\/.*\/data\//| hdfs dfs -put -p - $HDFS_TARGET_ESCAPED\/data\//g" | sed -e "s/https/curl https/g" > upload.sh
+cat verify_sort_remote_local.tsv | cut -d ' ' -f2,6 | sed -e "s/file:\/.*\/data\//| hdfs dfs -put -p - $HDFS_TARGET_ESCAPED\/data\//g" | sed -e "s/https/curl --fail -L https/g" > upload.sh
 split upload.sh -n3 --additional-suffix=.sh -d upload
 nohup bash upload00.sh &> upload00.log &
 nohup bash upload01.sh &> upload01.log &
