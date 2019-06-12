@@ -46,6 +46,7 @@ Similar to previous, only instead of using the spark-job-submit.sh script, do th
 import bio.guoda.preston.spark.PrestonUtil
 implicit val sparky = spark
 PrestonUtil.main(Array("hdfs:///guoda/data/source=preston-amazon/data", "hdfs:///guoda/data/source=preston-amazon/dwca"))
+```
 4. after the job is done, confirm that 
 ```scala
 val data = spark.read.parquet("/guoda/data/source=preston-amazon/dwca/core.parquet") // replace with suitable target directory
