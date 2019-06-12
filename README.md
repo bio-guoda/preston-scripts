@@ -49,4 +49,6 @@ PrestonUtil.main(Array("hdfs:///guoda/data/source=preston/data", "hdfs:///guoda/
 ```
 replacing the hdfs paths with your desired input and output paths.
 
-Note that your can run the spark-shell locally on your machine also and point the paths at a local file system using file:/// urls. 
+Note that your can run the spark-shell locally on your machine also and point the paths at a local file system using file:/// urls.
+
+Also note that similar approach can be taken using pyspark (python) and a spark-shell that runs the executors in the cluster. See [Apache Spark](https://spark.apache.org) documentation for more information.
