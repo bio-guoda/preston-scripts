@@ -29,7 +29,7 @@ Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https
 2. confirm that the ```data``` and ```prov``` folder exists and have sub-directories.
 3. inspect [./spark-job-submit.sh](./spark-job-submit.sh) and notice how the script helps to send a http post request to some cluster endpoint.
 4. inspect [./spark-job-dwca2parquet.json](./spark-job-dwca2parquet.json) and notice the two path arguments near the top file ```"appArgs" : [ "/guoda/data/source=preston-amazon/data", "/guoda/data/source=preston-amazon/dwca"]``` .
-5. before submitting a job to the cluster, inspect the current cluster status using the mesos dashboard at http://mesos02.acis.ufl.edu:5050/#/ where mesos02 is the current name node. If you don't have access to the acis mesos servers, tunnel into acis infrastructure using ssh ```ssh -D8080 someuser@ssh.acis.ufl.edu``` and configure your browser to use a manual proxy configuration with a SOCKS host running on localhost on port 8080 . 
+5. before submitting a job to the cluster, inspect the current cluster status using the mesos dashboard at http://mesos02.acis.ufl.edu:5050/#/ where mesos02 is the current main node. If you don't have access to the acis mesos servers, tunnel into acis infrastructure using ssh ```ssh -D8080 someuser@ssh.acis.ufl.edu``` and configure your browser to use a manual proxy configuration with a SOCKS host running on localhost on port 8080 . 
 6. after editing the spark-job-dwca2parquet.json to point to your hdfs paths, submit the job using ```./spark-job-submit.sh spark-job-dwca2parquet.json```. 
 
 ### Spark Shell
