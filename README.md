@@ -18,11 +18,11 @@ to use:
 5. run ```./preston2hdfs.sh``` to migrate the Preston remote to the specified HDFS target. 
 6. inspect the target HDFS target and the work directory ```preston2hdfs.tmp``` for results.  
 
-## Preston to DwC-A using Spark Job Dispatcher
+## Preston to DwC-A 
 
 Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https://github.com/bio-guoda/idigbio-spark) to convert DwC-A files in the Preston data to formats like Parquet and Sequence file. This can be done using an interactive spark shell, or by using the Spark Job Dispatcher.
 
-### Spark Job Dispatcher
+### Preston to DwC-A using Spark Job Dispatcher
 
 0. repeat step 0-2 of previous recipe
 1. type ```hdfs dfs -ls /user/[your username]/guoda/data/source=preston-amazon/```
@@ -34,7 +34,7 @@ Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https
 7. monitor the progress of the job in the Mesos dashboard.
 8. once the job is done, verify that files have appeared at the target location.
 
-### Spark Shell
+### Preston to DwC-A using Spark Shell
 
 Similar to previous, only instead of using the spark-job-submit.sh script, do the following:
 
