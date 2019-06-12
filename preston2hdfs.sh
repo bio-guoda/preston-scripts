@@ -10,8 +10,11 @@ set -x
 PRESTON_VERSION=0.0.15
 #PRESTON_REMOTE=https://deeplinker.bio
 PRESTON_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data/
-HDFS_TARGET=/guoda/data/source=preston-amazon
+HDFS_TARGET=/$USER/guoda/data/source=preston-amazon
 WORK_DIR=preston2hdfs.tmp
+
+echo preston remote [$PRESTON_REMOTE]
+echo hdfs target [$HDFS_TARGET]
 
 mkdir -p $WORK_DIR
 cd $WORK_DIR
