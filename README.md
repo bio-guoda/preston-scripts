@@ -32,7 +32,7 @@ Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https
 5. before submitting a job to the cluster, inspect the current cluster status using the Mesos dashboard at http://mesos02.acis.ufl.edu:5050/#/ where mesos02 is the current main node. If you don't have access to the acis mesos servers, tunnel into acis infrastructure using ssh ```ssh -D8080 someuser@ssh.acis.ufl.edu``` and configure your browser to use a manual proxy configuration with a SOCKS host running on localhost on port 8080 . 
 6. after editing the spark-job-dwca2parquet.json to point to your hdfs paths, submit the job using ```./spark-job-submit.sh spark-job-dwca2parquet.json```. 
 7. monitor the progress of the job in the Mesos dashboard.
-
+8. once the job is done, verify that files have appeared at the target location.
 
 ### Spark Shell
 
@@ -46,6 +46,12 @@ Similar to previous, only instead of using the spark-job-submit.sh script, do th
 import bio.guoda.preston.spark.PrestonUtil
 implicit val sparky = spark
 PrestonUtil.main(Array("hdfs:///guoda/data/source=preston-amazon/data", "hdfs:///guoda/data/source=preston-amazon/dwca"))
+4. after the job is done, confirm that 
+```scala
+val data = spark.read.parquet("/guoda/data/source=preston-amazon/dwca/core.parquet") // replace with suitable target directory
+data.count
+```
+results in a non-zero result.
 ```
 replacing the hdfs paths with your desired input and output paths.
 
