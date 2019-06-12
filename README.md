@@ -51,9 +51,7 @@ PrestonUtil.main(Array("hdfs:///guoda/data/source=preston-amazon/data", "hdfs://
 val data = spark.read.parquet("/guoda/data/source=preston-amazon/dwca/core.parquet") // replace with suitable target directory
 data.count
 ```
-results in a non-zero result.
-```
-replacing the hdfs paths with your desired input and output paths.
+results in a non-zero result after replacing the hdfs paths with your desired input and output paths.
 
 Note that your can run the spark-shell locally on your machine also and point the paths at a local file system using file:/// urls.
 
