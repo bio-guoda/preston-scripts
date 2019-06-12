@@ -45,7 +45,7 @@ Similar to previous, only instead of using the spark-job-submit.sh script, do th
 ```scala
 import bio.guoda.preston.spark.PrestonUtil
 implicit val sparky = spark
-PrestonUtil.main(Array("hdfs:///guoda/data/source=preston/data", "hdfs:///guoda/data/source=preston/dwca"))
+PrestonUtil.main(Array("hdfs:///guoda/data/source=preston-amazon/data", "hdfs:///guoda/data/source=preston-amazon/dwca"))
 ```
 replacing the hdfs paths with your desired input and output paths.
 
