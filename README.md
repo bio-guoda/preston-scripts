@@ -60,6 +60,8 @@ Also note that similar approach can be taken using pyspark (python) and a spark-
 
 ### Preston to DwC-A / Parquet using dwca2parquet.sh
 
-1. open terminal 
-2. run ```dwca2parquet.sh [src] [target]```
+1. complete steps to import preston-amazon dataset into HDFS to location hdfs:///user/[your username]/guoda/data/source=preston-amazon/ . 
+2. unpack dwc archives and translate into parquets by running ```dwca2parquet.sh hdfs:///user/$USER/guoda/data/source=preston-amazon/data hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca``` . Please note that if the dwca directory already exist, the process will fail.
+3. after completion, verify that results exists by running ```hdfs dfs -ls hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca/core.parquet``` 
+4. alternatively, you can run ```echo 'spark.read.parquet("""hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca/core.parquet""").show(2)' | spark-shell```
 
