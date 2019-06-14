@@ -1,5 +1,7 @@
 # preston-scripts
-Import and conversion scripts related to Preston data. The scripts are intended to provide examples on how to use [Preston](https://github.com/bio-guoda/preston) in combination with GUODA's cluster (e.g., HDFS, Apache Spark, Mesos).
+Import and conversion scripts related to Preston data. 
+The scripts are intended to provide examples on how to use [Preston](https://github.com/bio-guoda/preston) 
+in combination with GUODA's cluster (e.g., HDFS, Apache Spark, Mesos).
 
 
 ## HDFS Import
