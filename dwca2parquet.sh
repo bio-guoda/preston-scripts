@@ -11,6 +11,6 @@
 #
 
 
-[ -f idigbio-spark.jar ] || wget -O idigbio-spark.jar https://s3-us-west-2.amazonaws.com/guoda/idigbio-spark/iDigBio-LD-assembly-1.5.9.jar 
+[ -f idigbio-spark.jar ] || wget -O idigbio-spark.jar https://github.com/bio-guoda/idigbio-spark/releases/download/0.0.1/iDigBio-LD-assembly-1.5.9.jar 
 
 spark-shell --jars idigbio-spark.jar --conf spark.sql.caseSensitive=true --class bio.guoda.preston.spark.PrestonUtil $@
