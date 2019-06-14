@@ -5,11 +5,12 @@
 # ./dwca2parquet.sh [src dir] [target dir]
 #
 # example:
-#   ./dwca2parquet.sh file:///user/someuser/preston/data file:///user/some/parquets
+#   ./dwca2parquet.sh hdfs:///user/$USER/guoda/data/source=preston-amazon/data hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca
 #
-# Assumes that spark-shell is available.
+# Assumes that spark-shell is available and a Preston dataset exists at hdfs:///user/$USER/guoda/data/source=preston-amazon/data . 
 #
 
-wget -O idigbio-spark.jar https://s3-us-west-2.amazonaws.com/guoda/idigbio-spark/iDigBio-LD-assembly-1.5.9.jar 
+
+[ -f idigbio-spark.jar ] || wget -O idigbio-spark.jar https://s3-us-west-2.amazonaws.com/guoda/idigbio-spark/iDigBio-LD-assembly-1.5.9.jar 
 
 spark-shell --jars idigbio-spark.jar --conf spark.sql.caseSensitive=true --class bio.guoda.preston.spark.PrestonUtil $@
