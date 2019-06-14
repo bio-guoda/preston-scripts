@@ -55,3 +55,4 @@ split upload.sh -nl/3 --additional-suffix=.sh -d upload
 nohup bash upload00.sh &> upload00.log &
 nohup bash upload01.sh &> upload01.log &
 nohup bash upload02.sh &> upload02.log &
+
