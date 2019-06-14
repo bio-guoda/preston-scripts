@@ -57,3 +57,9 @@ results in a non-zero result after replacing the hdfs paths with your desired in
 Note that your can run the spark-shell locally on your machine also and point the paths at a local file system using file:/// urls.
 
 Also note that similar approach can be taken using pyspark (python) and a spark-shell that runs the executors in the cluster. See [Apache Spark](https://spark.apache.org) documentation for more information.
+
+### Preston to DwC-A / Parquet using dwca2parquet.sh
+
+1. open terminal 
+2. run ```dwca2parquet.sh [src] [target]```
+
