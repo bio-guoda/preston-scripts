@@ -15,7 +15,8 @@ PRESTON_VERSION=0.0.15
 #PRESTON_REMOTE=https://deeplinker.bio
 PRESTON_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data
 
-HDFS_TARGET=/user/$USER/guoda/data/source=preston-bhl
+#HDFS_TARGET=/user/$USER/guoda/data/source=preston-bhl
+HDFS_TARGET=/user/$USER/guoda/data/source=preston-amazon
 
 # A Preston history remote keeps a version history of a Preston data observatory
 # The version history can be retrieved using method described at 
