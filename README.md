@@ -41,7 +41,7 @@ Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https
 Similar to previous, only instead of using the spark-job-submit.sh script, do the following:
 
 0. start a jupyter terminal https://jupyter.idigbio.org 
-1. download the https://s3-us-west-2.amazonaws.com/guoda/idigbio-spark/iDigBio-LD-assembly-1.5.9.jar  
+1. download the https://github.com/bio-guoda/idigbio-spark/releases/download/0.0.1/iDigBio-LD-assembly-1.5.9.jar  
 2. start a spark-shell using ```spark-shell --conf spark.sql.caseSensitive=true --jars iDigBio-LD-assembly-1.5.9.jar```
 3. now, run the following in the spark-shell
 ```scala
