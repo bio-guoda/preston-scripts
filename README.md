@@ -13,7 +13,7 @@ To use:
 0. Start a terminal via https://jupyter.idigbio.org 
 1. Clone this repository ```git clone https://github.com/bio-guoda/preston-scripts```
 2. ```cd preston-scripts```
-3. Inspect ```./preston2hdfs.sh``` and change settings when needed.
+3. Inspect [./preston2hdfs.sh](./preston2hdfs.sh) and change settings when needed.
 4. By default, the preston2hdfs.sh script uses an example Preston instance, https://github.com/bio-guoda/preston-amazon , as a Preston remote and HDFS target ```/user/[your username]/guoda/data/source=preston-amazon/```. 
 5. Run ```./preston2hdfs.sh``` to migrate the Preston remote to the specified HDFS target. 
 6. Inspect the target HDFS target and the work directory ```preston2hdfs.tmp``` for results.  
