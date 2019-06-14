@@ -3,7 +3,8 @@
 # Imports a preston observatory (i.e., history, data and provenance) 
 # using preston remotes (e.g., https://deeplinker.bio/) 
 # into HDFS targets data and provenance targets 
-# (e.g., hdfs://guoda/data/source=preston/data (for data) and hdfs://guoda/data/source=preston/prov (for data provenance)).
+# (e.g., hdfs://guoda/data/source=preston/data (for data) 
+# and hdfs://guoda/data/source=preston/prov (for data provenance)).
 #
 # For more information see https://preston.guoda.bio/
 #
