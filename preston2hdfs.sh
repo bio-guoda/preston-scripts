@@ -25,7 +25,7 @@ HDFS_TARGET=/user/$USER/guoda/data/source=preston-amazon
 HISTORY_QUERY_HASH=2a5de79372318317a382ea9a2cef069780b852b01210ef59e06b640a3539cb5a
 #HISTORY_REMOTE=https://deeplinker.bio
 #HISTORY_REMOTE=https://raw.githubusercontent.com/jhpoelen/preston-remotes/master/bhl
-HISTORY_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data
+HISTORY_REMOTE=https://raw.githubusercontent.com/bio-guoda/preston-amazon/master/data/2a/5d
 HISTORY_ROOT=$HISTORY_REMOTE/$HISTORY_QUERY_HASH
 HISTORY_PATH=$(echo $HISTORY_QUERY_HASH | awk '{ print "data/" substr($1,1,2) "/" substr($1,3,2) }')
 
