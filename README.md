@@ -71,7 +71,13 @@ To generate a taxonomic checklist:
 
 1. inspect [./create-checklist.sh](./create-checklist.sh) 
 2. run ```./create-checklist.sh``` in jupyter.idigbio.org terminal using appropriate parameters. By default, a checklist for birds and frogs in an area covering the Amazon rainforest is created. 
-3. inspect the results in ```hdfs:///user/[your user name]/guoda/checklist``` and ```hdfs:///user/[your user name]/guoda/checklist-summary``` or the non-default location that you used to calculate the checklist. 
+3. inspect the results in ```hdfs:///user/[your user name]/guoda/checklist``` and ```hdfs:///user/[your user name]/guoda/checklist-summary``` or the non-default location that you used to calculate the checklist using:
+
+```shell
+$ hdfs dfs -ls /user/[your user name]/guoda/checklist
+$ hdfs dfs -ls /user/[your user name]/guoda/checklist-summary
+```
+
 4. to use checklists in spark, start a spark-shell (or pyspark) and run commands like:
 
 ```shell
