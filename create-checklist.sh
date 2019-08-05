@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Generates taxonomic checklist in guoda cluster using default Preston dwca corpus.
+# Generate taxonomic checklist in guoda cluster using Preston DwC-A corpus by default.
 #
 # usage:
 #   ./create-checklist [taxon selector] [wkt string] [trait selector]
@@ -9,6 +9,11 @@
 #
 # A POSIX variable
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
+
+function show_help {
+    echo -e Generate taxonomic checklist in guoda cluster using default Preston dwca corpus.\\n\
+    usage: ./create-checklist.sh [taxon selector] [wkt string] [trait selector]
+}
 
 trait_dir="hdfs:///guoda/data/traits"
 input_dir="hdfs:///guoda/data/source=preston.acis.ufl.edu/dwca/core.parquet"
@@ -20,10 +25,11 @@ while getopts "h?cto:" opt; do
         show_help
         exit 0
         ;;
-    c)  verbose=1
+    c)  input_dir=$OPTARG
         ;;
-    t)  output_file=$OPTARG
+    t)  trait_dir=$OPTARG
         ;;
+    o)  output_dir=$OPTARG
     esac
 done
 
