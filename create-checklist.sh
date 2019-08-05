@@ -1,4 +1,4 @@
-#!/bin/bash                                                                                                                        
+#!/bin/bash
 #
 # Generates taxonomic checklist in guoda cluster using default Preston dwca corpus.
 #
@@ -6,8 +6,7 @@
 #   ./create-checklist [taxon selector] [wkt string] [trait selector]
 #
 #
-#                                                                                                                                  
-                                                                                                                                   
+#
 # A POSIX variable
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
@@ -40,16 +39,16 @@ taxon_selector=${3-"Anas|Anura"}
 # install prerequisites
 source get-libs.sh
 
-spark-submit \                                                                                                                     
-  --master mesos://zk://mesos01:2181,mesos02:2181,mesos03:2181/mesos \ 
-  --driver-memory 4G \ 
-  --executor-memory 20G \                                                                                               
-  --conf spark.sql.caseSensitive=true \ 
-  --class ChecklistGenerator \                                                                                                     
-  $IDIGBIO_SPARK_JAR \ 
+spark-submit \
+  --master mesos://zk://mesos01:2181,mesos02:2181,mesos03:2181/mesos \
+  --driver-memory 4G \
+  --executor-memory 20G \
+  --conf spark.sql.caseSensitive=true \
+  --class ChecklistGenerator \
+  $IDIGBIO_SPARK_JAR \
   -c $input_dir \
   -t $trait_dir \
-  -o $output_dir \                                                                                             
-  "$taxon_selector" \ 
-  "$wkt_string" \                                                                                                                  
+  -o $output_dir \
+  "$taxon_selector" \
+  "$wkt_string" \
   "$trait_selector"
