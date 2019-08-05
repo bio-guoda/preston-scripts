@@ -38,9 +38,9 @@ shift $((OPTIND-1))
 [ "${1:-}" = "--" ] && shift
 
 # see http://www.gnu.org/software/bash/manual/bashref.html#Shell-Parameter-Expansion
-trait_selector=${1-""}
+taxon_selector=${1-"Anas|Anura"}
 wkt_string=${2-"POLYGON ((-72.77293810620904 -33.196074154826235, -72.77293810620904 6.59516197881252, -28.12450060620904 6.59516197881252, -28.12450060620904 -33.196074154826235, -72.77293810620904 -33.196074154826235))"} 
-taxon_selector=${3-"Anas|Anura"}
+trait_selector=${3-""}
 
 # install prerequisites
 source get-libs.sh
