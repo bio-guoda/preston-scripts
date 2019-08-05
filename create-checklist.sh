@@ -46,7 +46,7 @@ spark-submit \
   --executor-memory 20G \                                                                                               
   --conf spark.sql.caseSensitive=true \ 
   --class ChecklistGenerator \                                                                                                     
-  libs/idigbio-spark.jar \ 
+  $IDIGBIO_SPARK_JAR \ 
   -c $input_dir \
   -t $trait_dir \
   -o $output_dir \                                                                                             
