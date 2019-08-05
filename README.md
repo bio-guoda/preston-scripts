@@ -81,6 +81,8 @@ scala> val checklists = spark.read.parquet("/user/[your user]/guoda/checklist")
 ...
 scala> checklist.show(10) // to show first 10 items in checklist
 ...
+```
+
 5. to export checklists to csv files, use:
 
 ```shell
