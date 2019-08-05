@@ -3,6 +3,12 @@ Import and conversion scripts related to Preston data.
 The scripts are intended to provide examples on how to use [Preston](https://github.com/bio-guoda/preston) 
 in combination with GUODA's cluster (e.g., HDFS, Apache Spark, Mesos).
 
+Includes scripts to:
+
+ 1. [`HDFS Import`](#hdfs-import) - import Preston archive into HDFS
+ 2. [`Preston to DwC-A`)(#preston-to-dwca-a) - convert Preston DwC-A archives into sequence files, and parquet files.
+ 3. [`Create Taxonomic Checklist`](#create-taxonomic-checklist) - use converted Preston DwC-A archives to generate taxonomic checklists given specified taxon and geospatial constraints.
+
 
 ## HDFS Import
 
@@ -22,19 +28,16 @@ To use:
 
 ## Preston to DwC-A 
 
-Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https://github.com/bio-guoda/idigbio-spark) to convert DwC-A files in the Preston data to formats like Parquet and Sequence file. This can be done using an interactive spark shell, or by using the Spark Job Dispatcher.
+Now that Preston data has been moved into HDFS, we can use [idigbio-spark](https://github.com/bio-guoda/idigbio-spark) to convert DwC-A files in the Preston data to formats like Parquet and Sequence file. This can be done using an interactive spark shell (```spark-shell``` or ```pyspark```), or by using by using spark-submit.
 
-### Preston to DwC-A using Spark Job Dispatcher
+### Preston to DwC-A using dwca2parquet.sh
 
 0. Repeat step 0-2 of previous recipe
 1. Type ```hdfs dfs -ls /user/[your username]/guoda/data/source=preston-amazon/```
 2. Confirm that the ```data``` and ```prov``` folder exists and have sub-directories.
-3. Inspect [./spark-job-submit.sh](./spark-job-submit.sh) and notice how the script helps to send a http post request to some cluster endpoint running the spark cluster dispatcher at mesos07.acis.ufl.edu on port 7077. This dispatcher is kept alive by Marathon, a mesos framework that manages long running processes. You can access the Marathon dashboard at http://mesos02.acis.ufl.edu:8080/ui/#/apps and inspect the spark dispatcher configuration at http://mesos02.acis.ufl.edu:8080/ui/#/apps/%2Fspark-mesos-cluster-dispatcher/configuration .  Note that Marathon is also responsible for keeping the [effechecka](https://github.com/bio-guoda/effechecka) api up and running.  For more information about submitting spark jobs, see https://spark.apache.org/docs/latest/submitting-applications . For specific examples of Marathon configuration, see https://github.com/bio-guoda/effechecka/blob/master/marathon/guoda-marathon-config.json .  
-4. Edit [./spark-job-dwca2parquet.json](./spark-job-dwca2parquet.json). Notice the two path arguments near the top file ```"appArgs" : [ "/guoda/data/source=preston-amazon/data", "/guoda/data/source=preston-amazon/dwca"]``` . They are the source and the target location, respectively. Editing these arguments to point to your hdfs paths.
-5. Before submitting a job to the cluster, inspect the current cluster status using the Mesos dashboard at http://mesos02.acis.ufl.edu:5050/#/ where mesos02 is the current main node. If you don't have access to the acis mesos servers, tunnel into acis infrastructure using ssh ```ssh -D8080 someuser@ssh.acis.ufl.edu``` and configure your browser to use a manual proxy configuration with a SOCKS host running on localhost on port 8080 . 
-6. Submit the job using ```./spark-job-submit.sh spark-job-dwca2parquet.json```. The job is dispatched, but it has not finished yet.
-7. Monitor the progress of the job in the Mesos dashboard.
-8. Once the job is done, verify that files have appeared at the target location.
+3. Inspect [./dwca2parquet.sh](./dwca2parquet.sh) 
+4. Run ```./dwca2parquet.sh``` with appropriate settings. By default it uses ```/user/[your username]/guoda/data/source=preston-amazon/data``` as your input and ```/user/[your username]/guoda/data/source=preston-amazon/dwca``` as your output
+5. Once the job is done, inspect HDFS output dir at ```/user/[your username]/guoda/data/source=preston-amazon/dwca``` for results
 
 ### Preston to DwC-A using Spark Shell
 
@@ -60,10 +63,31 @@ Note that your can run the spark-shell locally on your machine also and point th
 
 Also note that similar approach can be taken using pyspark (python) and a spark-shell that runs the executors in the cluster. See [Apache Spark](https://spark.apache.org) documentation for more information.
 
-### Preston to DwC-A / Parquet using dwca2parquet.sh
+## Create Taxonomic Checklist 
 
-1. complete steps to import preston-amazon dataset into HDFS to location hdfs:///user/[your username]/guoda/data/source=preston-amazon/ . 
-2. unpack dwc archives and translate into parquets by running ```dwca2parquet.sh hdfs:///user/$USER/guoda/data/source=preston-amazon/data hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca``` . Please note that if the dwca directory already exist, the process will fail.
-3. after completion, verify that results exists by running ```hdfs dfs -ls hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca/core.parquet``` 
-4. alternatively, you can run ```echo "spark.read.parquet(\"\"\"hdfs:///user/$USER/guoda/data/source=preston-amazon/dwca/core.parquet\"\"\").show(2)" | spark-shell```
+Taxonomic checklists can be generated after converting Preston DwC-A to Parquet files. 
+
+To generate a taxonomic checklist:
+
+1. inspect [./create-checklist.sh](./create-checklist.sh) 
+2. run ```./create-checklist.sh``` in jupyter.idigbio.org terminal using appropriate parameters. By default, a checklist for birds and frogs in an area covering the Amazon rainforest is created. 
+3. inspect the results in ```hdfs:///user/[your user name]/guoda/checklist``` and ```hdfs:///user/[your user name]/guoda/checklist-summary``` or the non-default location that you used to calculate the checklist. 
+4. to use checklists in spark, start a spark-shell (or pyspark) and run commands like:
+
+```shell
+$ spark-shell
+...
+scala> val checklists = spark.read.parquet("/user/[your user]/guoda/checklist")
+...
+scala> checklist.show(10) // to show first 10 items in checklist
+...
+5. to export checklists to csv files, use:
+
+```shell
+$ spark-shell
+scala> val checklists = spark.read.parquet("/user/[your user]/guoda/checklist")
+...
+scala> checklists.write.csv("/user/[your user]/my-checklist.csv")
+```
+
 
