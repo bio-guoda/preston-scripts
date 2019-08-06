@@ -9,6 +9,7 @@ Includes scripts to:
  2. [`Preston to DwC-A`)(#preston-to-dwca-a) - convert Preston DwC-A archives into sequence files, and parquet files.
  3. [`Create Taxonomic Checklist`](#create-taxonomic-checklist) - use converted Preston DwC-A archives to generate taxonomic checklists given specified taxon and geospatial constraints.
 
+Please submit any issues you may have using https://github.com/bio-guoda/guoda-services/issues/  . 
 
 ## HDFS Import
 
