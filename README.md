@@ -100,4 +100,6 @@ scala> val checklists = spark.read.parquet("/user/[your user]/guoda/checklist")
 scala> checklists.write.csv("/user/[your user]/my-checklist.csv")
 ```
 
+# Funding 
 
+This work is funded in part by grant [NSF OAC 1839201](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1839201&HistoricalAwards=false) from the National Science Foundation.
