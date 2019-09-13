@@ -2,6 +2,8 @@
 #
 # Stops frameworks that have been active for more than 14 days. 
 #
+# See https://github.com/bio-guoda/guoda-services/issues/14 .
+#
 # usage:
 #
 #   ./framework-stop-old.sh
