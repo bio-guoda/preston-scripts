@@ -9,7 +9,7 @@
 #   ./framework-stop-old.sh
 
 set -xe
-./framework-list.sh | ./jq --raw-output '. | select(.days_active > 14) | .id' | xargs ./framework-stop.sh    
+./framework-list.sh | ./jq --raw-output '. | select(.days_active > 14) | .id' | xargs -L1 ./framework-stop.sh    
 
 
 
