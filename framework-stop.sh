@@ -8,4 +8,4 @@
 # ./stop-framework.sh [framework id]
 
 set -xe
-curl -X POST http://mesos02:5050/master/teardown -d "frameworkId=$1"
+curl --silent -X POST http://mesos02:5050/master/teardown -d "frameworkId=$1"

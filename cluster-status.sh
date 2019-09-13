@@ -10,4 +10,4 @@
 #
 
 set -xe
-curl  http://mesos02:5050/metrics/snapshot | ./jq .
+curl --silent  http://mesos02:5050/metrics/snapshot | ./jq .
