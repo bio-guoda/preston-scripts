@@ -7,7 +7,7 @@
 #   ./framework-list.sh
 
 set -xe
-curl --silent http://mesos02:5050/master/frameworks | ./jq -f list-frameworks.jq
+curl --silent http://mesos02:5050/master/frameworks | ./jq -f framework-list.jq
 
 
 
