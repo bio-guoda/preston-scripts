@@ -6,11 +6,11 @@
 
 last_versions=6
 
-uniq_urls=$(preston history -l tsv | tail -n$last_versions | cut -f1 | parallel --citation  preston get {1} | grep "hasVersion" | sort | uniq | cut -d ' ' -f1 | sort | uniq -c | sort -nr | wc -l)
-rotten_urls=$(preston history -l tsv | tail -n$last_versions | cut -f1 | parallel --citation  preston get {1} | grep "hasVersion" | grep  "well-known" | sort | uniq | cut -d ' ' -f1 | sort | uniq -c | sort -nr | wc -l)
-drifing_urls=$(preston history -l tsv | tail -n$last_versions | cut -f1 | parallel --citation  preston get {1} | grep "hasVersion" | grep -v "well-known" | sort | uniq | cut -d ' ' -f1 | sort | uniq -c | sort -nr | wc -l)
+uniq_urls=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n$last_versions | cut -f1 | parallel  preston get {1} | grep "hasVersion" | sort | uniq | cut -d ' ' -f1 | sort | uniq -c | sort -nr | wc -l)
+rotten_urls=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n$last_versions | cut -f1 | parallel  preston get {1} | grep "hasVersion" | grep  "well-known" | sort | uniq | cut -d ' ' -f1 | sort | uniq -c | sort -nr | wc -l)
+drifing_urls=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n$last_versions | cut -f1 | parallel  preston get {1} | grep "hasVersion" | grep -v "well-known" | sort | uniq | cut -d ' ' -f1 | sort | uniq -c | sort -nr | wc -l)
 
-start_period=$(preston history -l tsv | tail -n$last_versions | head -n1 | cut -f1 | parallel --citation preston get {1} | head -n10 | grep startedAt)
+start_period=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n$last_versions | head -n1 | cut -f1 | parallel preston get {1} | head -n10 | grep startedAt)
 end_period=$(preston history -l tsv | tail -n1 | cut -f1 | parallel --citation preston get {1} | head -n10 | grep startedAt)
 
 echo $start_period
