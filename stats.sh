@@ -24,7 +24,7 @@ echo calculating hash sizes
 find data -type f | parallel ls -s --block-size=1 {1} | pv -l | awk -F ' ' '{ print "hash://sha256/" substr($2,12) "\t" $1 }' | sort > hash_sizes.tsv
 
 echo total hash size 
-cat hash_sizes.tsv | cut -f2 | awk '{ sum+=$1 } END {print sum / (1024 * 1024 * 1024 )}'
+cat hash_sizes.tsv | cut -f2 | awk '{ sum+=$1 } END {print sum / (1024 * 1024 * 1024 ) GB}'
 
 echo prov log start times, hashes and activity uuids
 preston history -l tsv | tr '\t' '\n' | grep hash | sort | uniq | parallel "preston get {1} | grep startedAtTime | head -n1 | sed s+\.$+\<{1}\>.+" > prov-startedAt.nq
@@ -50,4 +50,4 @@ join data-hash-size-time-prov-hash.tsv data-hash-data-time.tsv | tr ' ' '\t' >> 
 echo create a list of urls used in provenance logs
 preston history -l tsv | tr '\t' '\n' | grep hash | sort | uniq | parallel "preston get {1} | grep -v \"ns#seeAlso\" | tr ' ' '\n' | grep -P \"http([s])*://\" | grep -v 'deeplinker' | grep -v 'purl\.org' | grep -v 'w3\.org' | sed s+^+{1}+ | sort | uniq" | tr '<' '\t' | tr -d '>' | sort | uniq > prov-hash-url.tsv
 
-join prov-hash-time.tsv prov-hash-url.tsv | tr ' ' '\t' > prov-hash-time-url.tsv
+join <(sort prov-hash-time.tsv) <(sort prov-hash-url.tsv) | tr ' ' '\t' > prov-hash-time-url.tsv
