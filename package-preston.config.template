@@ -1,0 +1,6 @@
+NETWORK_NAME=DataONE
+PRESTON_NETWORK_SEED="https://dataone.org"
+NETWORK_CITATION="${NETWORK_NAME}, https://www.dataone.org"
+NETWORK_LONGNAME="Data Observation Network for Earth (${NETWORK_NAME}, [1])"
+PRESTON_REMOTE_URL=https://zenodo.org/record/3277312/files
+

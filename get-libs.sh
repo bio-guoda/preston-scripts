@@ -3,7 +3,7 @@
 # gets dependencies if none exist yet
 #
 
-PRESTON_VERSION=0.1.2
+PRESTON_VERSION=0.1.7
 PRESTON_JAR=lib/preston.jar
 
 IDIGBIO_SPARK_JAR=lib/idigbio-spark.jar
