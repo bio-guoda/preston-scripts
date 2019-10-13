@@ -71,7 +71,7 @@ Note that a copy of the java program "preston", preston.jar, is included in this
 
 Files in this data publication:
 
---- start of file description ---
+--- start of file descriptions ---
 
 -- description of archive and its contents (this file) --
 README 
