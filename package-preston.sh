@@ -51,7 +51,7 @@ The intended use of this archive is to facilitate meta-analysis of the ${NETWORK
 
 This dataset provides versioned snapshots of the DataONE network as tracked by Preston [2] between ${DATE_RANGE_START} and ${DATE_RANGE_END}.  
 
-The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance files and data files. Only two index and provenance files are included and have been individually included in this dataset publication. Index files provide a way to links provenance files in time to eestablish a versioning mechanism. Provenance files describe how, when and where the ${NETWORK_NAME} meta-data files were retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543).  
+The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. In addition, index files and provenance logs have been individually included in this dataset publication for easy access. Index files provide a way to links provenance files in time to eestablish a versioning mechanism. Provenance files describe how, when and where the ${NETWORK_NAME} meta-data files were retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543).  
 
 To retrieve and verify the downloaded ${NETWORK_NAME} biodiversity dataset graph, first concatenate all the downloaded preston-*.tar.gz files (e.g., cat preston-*.tar.gz > preston.tar.gz). Then, extract the archives into a "data" folder. Alternatively, you can use the preston[2] command-line tool to "clone" this dataset using:
 
@@ -71,8 +71,9 @@ Note that a copy of the java program "preston", preston.jar, is included in this
 
 Files in this data publication:
 
+--- start of file description ---
 
--- this file --
+-- description of archive and its contents (this file) --
 README 
 
 -- executable java jar containing preston[2] v${PRESTON_VERSION}. --
@@ -87,7 +88,10 @@ ${PRESTON_PROV_INDEX}
 -- individual provenance logs --
 ${PRESTON_PROV}
 
---- end of files ---
+--- end of file descriptions ---
+
+
+References 
 
 [1] ${NETWORK_CITATION}
 [2] https://preston.guoda.bio, https://doi.org/10.5281/zenodo.1410543 . DataONE was crawled via Preston with "preston update -u ${PRESTON_NETWORK_SEED}".
@@ -99,13 +103,13 @@ mv $TMPDIR/provindex/* $TMPDIR
 mv $TMPDIR/prov/* $TMPDIR
 
 mkdir -p $TMPDIR/old-tars
-mv data/*.tar.gz $TMPDIR/old-tars
+mv data/*.tar.gz $TMPDIR/old-tars || true
 
 echo packaging tar.gz files...
 ls -1 data/ | grep -P "^[0-9a-f]{2}$" | xargs -I {} sh -c "cd data && tar cvz {} > preston-{}.tar.gz"
 
 mv data/preston*.tar.gz $TMPDIR
-mv $TMPDIR/old-tars/* data/
+mv $TMPDIR/old-tars/* data/ || true
 rm -rf $TMPDIR/old-tars 
 rm -rf $TMPDIR/prov
 rm -rf $TMPDIR/provindex
