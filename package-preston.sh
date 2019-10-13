@@ -49,7 +49,7 @@ A biodiversity dataset graph: ${NETWORK_NAME}
 
 The intended use of this archive is to facilitate meta-analysis of the ${NETWORK_LONGNAME}. ${NETWORK_NAME} is a distributed infrastructure that provides information about earth observation data. 
 
-This dataset provides versioned snapshots of the DataONE network as tracked by Preston [2] between ${DATE_RANGE_START} and ${DATE_RANGE_END}.  
+This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2] between ${DATE_RANGE_START} and ${DATE_RANGE_END}.  
 
 The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. In addition, index files and provenance logs have been individually included in this dataset publication for easy access. Index files provide a way to links provenance files in time to eestablish a versioning mechanism. Provenance files describe how, when and where the ${NETWORK_NAME} meta-data files were retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543).  
 
@@ -79,7 +79,7 @@ README
 -- executable java jar containing preston[2] v${PRESTON_VERSION}. --
 preston.jar
 
--- preston archives containing DataONE meta-data files, their provenance and a provenance index --
+-- preston archives containing ${NETWORK_NAME} data files, their provenance and a provenance index --
 preston-[00-ff].tar.gz 
 
 -- individual provenance index files --
@@ -94,7 +94,7 @@ ${PRESTON_PROV}
 References 
 
 [1] ${NETWORK_CITATION}
-[2] https://preston.guoda.bio, https://doi.org/10.5281/zenodo.1410543 . DataONE was crawled via Preston with "preston update -u ${PRESTON_NETWORK_SEED}".
+[2] https://preston.guoda.bio, https://doi.org/10.5281/zenodo.1410543 . ${NETWORK_NAME} was crawled via Preston with "preston update -u ${PRESTON_NETWORK_SEED}".
 
 This work is funded in part by grant NSF OAC 1839201 from the National Science Foundation
 EOF
