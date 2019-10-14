@@ -14,6 +14,7 @@ set -xe
 NETWORK_NAME=DataONE
 PRESTON_NETWORK_SEED="https://dataone.org"
 NETWORK_LONGNAME="Data Observation Network for Earth"
+NETWORK_DESCRIPTION="${NETWORK_NAME} is a distributed infrastructure that provides information about earth observation data."
 PRESTON_REMOTE_URL=https://zenodo.org/record/3277312/files
 ## replace end ##
 
@@ -41,7 +42,7 @@ PRESTON_PROV_INDEX=$(ls -1 $TMPDIR/provindex)
 envsubst >$TMPDIR/README <<EOF
 A biodiversity dataset graph: ${NETWORK_NAME}
 
-The intended use of this archive is to facilitate meta-analysis of the ${NETWORK_LONGNAME} (${NETWORK_NAME}). ${NETWORK_NAME} is a distributed infrastructure that provides information about earth observation data. 
+The intended use of this archive is to facilitate meta-analysis of the ${NETWORK_LONGNAME} (${NETWORK_NAME}). ${NETWORK_DESCRIPTION} 
 
 This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2] between ${DATE_RANGE_START} and ${DATE_RANGE_END} using "preston update -u ${PRESTON_NETWORK_SEED}". 
 
