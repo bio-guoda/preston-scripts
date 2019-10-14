@@ -42,11 +42,11 @@ PRESTON_PROV_INDEX=$(ls -1 $TMPDIR/provindex)
 envsubst >$TMPDIR/README <<EOF
 A biodiversity dataset graph: ${NETWORK_NAME}
 
-The intended use of this archive is to facilitate meta-analysis of the ${NETWORK_LONGNAME} (${NETWORK_NAME}). ${NETWORK_DESCRIPTION} 
+The intended use of this archive is to facilitate (meta-)analysis of the ${NETWORK_LONGNAME} (${NETWORK_NAME}). ${NETWORK_DESCRIPTION} 
 
 This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2] between ${DATE_RANGE_START} and ${DATE_RANGE_END} using "preston update -u ${PRESTON_NETWORK_SEED}". 
 
-The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. In addition, index files have been individually included in this dataset publication to facilitate remote access. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543).  
+The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. In addition, index files have been individually included in this dataset publication to facilitate remote access. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543 .  
 
 To retrieve and verify the downloaded ${NETWORK_NAME} biodiversity dataset graph, first concatenate all the downloaded preston-*.tar.gz files (e.g., cat preston-*.tar.gz > preston.tar.gz). Then, extract the archives into a "data" folder. Alternatively, you can use the preston[2] command-line tool to "clone" this dataset using:
 
@@ -89,7 +89,7 @@ References
 [2] https://preston.guoda.bio, https://doi.org/10.5281/zenodo.1410543 . 
 
 
-This work is funded in part by grant NSF OAC 1839201 from the National Science Foundation
+This work is funded in part by grant NSF OAC 1839201 from the National Science Foundation.
 EOF
 
 mv $TMPDIR/provindex/* $TMPDIR
