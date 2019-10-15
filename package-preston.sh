@@ -25,7 +25,7 @@ fi
 
 DATE_RANGE_START=$(preston ls -l tsv | grep "prov#generatedAtTime" | cut -f3 | head -n1 | xargs -I {} date --iso-8601 -d {})
 DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n1 | xargs preston cat | grep "prov#generatedAtTime" | cut -f3 | tail -n1 | xargs -I {} date --iso-8601 -d {})
-LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n1)
+LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n2 | head -n1)
 PRESTON_HISTORY=$(preston history) 
 
 PRESTON_VERIFY_HEAD=$(preston verify | head -n4) 
