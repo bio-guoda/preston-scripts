@@ -34,6 +34,33 @@ $ preston ls | bzip2 > huge.nq.bz2
 $ tdbloader --loc index/ huge.nq.bz2
 $ tdbquery --loc index --query first25.sparql --results tsv | tail -n+2
 ```
+
+## capacity queries
+
+### select only idigbio / gbif / biocase
+
+Queries to select generations from individual network can be found at:
+
+ * [select-idigbio.sparql](./select-idigbio.sparql)
+ * [select-gbif.sparql](./select-gbif.sparql)
+ * [select-biocase.sparql](./select-biocase.sparql)
+
+Note that the "graph" for networks is a little different:
+
+iDigBio - publishers -> publisher uuid -> publisher rss url -> dataset uuid -> dataset url
+
+GBIF - dataset registry page -> dataset uuid -> dataset url
+
+BioCASe - data source registry -> provider url -> dataset url
+
+After building an index, the queries can be executed using something like:
+
+```time tdbquery --loc hugeindex --query select-biocase.sparql --results tsv > somefile.tsv```
+
+Note that the queries are limited to first 25 results, so for full run, please comment that part out.
+
+
+
 ## rdf/nq in, rdf/nq out
 
 Sparql does not produce valid rdf/nquads, however, you do some tricks to produce triples from a three column result set:
@@ -47,6 +74,17 @@ $ sparql --data results.nq --query first25.sparql
 ## performance 
 
 how fast?
+
+Measurements below are done on:
+$ sudo lshw -short | grep disk
+/0/1/0.0.0       /dev/sda   disk           3TB TOSHIBA DT01ACA3
+/0/2/0.0.0       /dev/sdb   disk           3TB TOSHIBA DT01ACA3
+
+(7200 rpm spinning disks) in RAID1 config with 
+
+Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
+and 16GB of DD3 memory.
+
 
 ### all of Preston GBIF/iDigBio/BioCASe
 

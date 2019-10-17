@@ -1,0 +1,21 @@
+SELECT ?crawl ?crawl_date ?providers_url ?providers_version ?pub_uuid ?provider_url ?provider_version ?dataset_uuid ?dataset_url ?dataset_version
+#SELECT (count(?dataset_url) as ?count)
+ WHERE {
+   values ?verb { <http://www.w3.org/ns/prov#generatedAtTime> } .
+   ?crawl <http://www.w3.org/ns/prov#wasStartedBy> ?preston .
+   ?crawl <http://www.w3.org/ns/prov#startedAtTime> ?crawl_date .
+   ?providers_url <http://purl.org/pav/createdBy> <http://biocase.org> .
+   ?generation <http://www.w3.org/ns/prov#used> ?providers_url .
+   ?generation <http://www.w3.org/ns/prov#activity> ?crawl  .
+   ?providers_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?generation .
+   ?providers_version <http://www.w3.org/ns/prov#hadMember> ?provider_url .
+   ?provider_gen <http://www.w3.org/ns/prov#used> ?provider_url . 
+   ?provider_gen <http://www.w3.org/ns/prov#activity> ?crawl .
+   ?provider_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?provider_gen . 
+   ?provider_version <http://www.w3.org/ns/prov#hadMember> ?dataset_url . 
+   ?dataset_gen <http://www.w3.org/ns/prov#used> ?dataset_url . 
+   ?dataset_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?dataset_gen .
+   ?dataset_gen <http://www.w3.org/ns/prov#activity> ?crawl .
+   #OPTIONAL { ?provider_url <http://www.w3.org/ns/prov#hadMember> ?data_url .}
+}
+LIMIT 25

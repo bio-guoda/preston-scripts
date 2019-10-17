@@ -1,0 +1,18 @@
+SELECT ?crawl ?crawl_date ?datasets_url ?datasets_version ?pub_uuid ?rss_url ?rss_version ?rss_item_uuid ?rss_item_url ?rss_item_version
+#SELECT (count(?rss_item_url) as ?count)
+ WHERE {
+   values ?verb { <http://www.w3.org/ns/prov#generatedAtTime> } .
+   ?crawl <http://www.w3.org/ns/prov#wasStartedBy> ?preston .
+   ?crawl <http://www.w3.org/ns/prov#startedAtTime> ?crawl_date .
+   ?datasets_url <http://purl.org/pav/createdBy> <https://gbif.org> .
+   ?generation <http://www.w3.org/ns/prov#used> ?datasets_url .
+   ?generation <http://www.w3.org/ns/prov#activity> ?crawl  .
+   ?datasets_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?generation .
+   ?datasets_version <http://www.w3.org/ns/prov#hadMember> ?pub_uuid .
+   ?pub_uuid <http://www.w3.org/ns/prov#hadMember> ?rss_url . 
+   ?rss_gen <http://www.w3.org/ns/prov#used> ?rss_url . 
+   ?rss_gen <http://www.w3.org/ns/prov#activity> ?crawl .
+   ?rss_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?rss_gen . 
+   #OPTIONAL { ?rss_url <http://www.w3.org/ns/prov#hadMember> ?data_url .}
+}
+LIMIT 25
