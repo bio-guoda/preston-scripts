@@ -56,9 +56,34 @@ $ time preston ls | bzip2 > huge.nq.bz2
 real	22m30.875s
 user	21m24.693s
 sys	4m34.099s
-$ time tdbloader --loc hugeindex huge.nq.bz2
+$ tdbloader --loc hugeindex huge.nq.bz2
+04:00:47 INFO  loader               :: -- Start triples data phase
+04:00:47 INFO  loader               :: ** Load empty triples table
+04:00:47 INFO  loader               :: -- Start quads data phase
+04:00:47 INFO  loader               :: ** Load empty quads table
+04:00:47 INFO  loader               :: Load: huge.nq.bz2 -- 2019/10/17 04:00:47 CEST
+04:00:49 INFO  loader               :: Add: 50,000 triples (Batch: 20,929 / Avg: 20,929)
+04:00:51 INFO  loader               :: Add: 100,000 triples (Batch: 28,835 / Avg: 24,254)
+...
+04:19:12 INFO  loader               :: ** Index SPO->OSP: 11,862,080 slots indexed in 34.32 seconds [Rate: 345,641.75 per second]
+04:19:12 INFO  loader               :: -- Finish triples index phase
+04:19:12 INFO  loader               :: ** 11,862,080 triples indexed in 74.18 seconds [Rate: 159,902.94 per second]
+04:19:12 INFO  loader               :: -- Finish triples load
+04:19:12 INFO  loader               :: ** Completed: 33,351,051 triples loaded in 1,105.24 seconds [Rate: 30,175.34 per second]
+04:19:12 INFO  loader               :: -- Finish quads load
 
+$ du -d0 -h hugeindex
+1.7G	hugeindex
 $ time tdbquery --loc hugeindex --query count.sparql
+---------
+| count |
+=========
+| 35    |
+---------
+
+real	0m21.815s
+user	0m25.142s
+sys	0m0.743s
 ```
 
 where ```count.sparql``` is :
