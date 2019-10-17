@@ -31,15 +31,15 @@ For large datasets, first load the data into a triple store, then query on the d
 
 ```shell 
 $ preston ls | bzip2 > huge.nq.bz2
-$ tdb2.tdbloader --loc index/ huge.nq.bz2
-$ tdb2.tdbquery --loc index --query first25.sparql --results tsv | tail -n+2
+$ tdbloader --loc index/ huge.nq.bz2
+$ tdbquery --loc index --query first25.sparql --results tsv | tail -n+2
 ```
 ## rdf/nq in, rdf/nq out
 
 Sparql does not produce valid rdf/nquads, however, you do some tricks to produce triples from a three column result set:
 
 ```shell
-$ tdb2.tdbquery --loc index --query first25.sparql --results tsv | tail -n+2 | tr '\t' ' ' | sed "s/$/\ ./g" > results.nq
+$ tdbquery --loc index --query first25.sparql --results tsv | tail -n+2 | tr '\t' ' ' | sed "s/$/\ ./g" > results.nq
 # query the results
 $ sparql --data results.nq --query first25.sparql 
 ```
@@ -56,9 +56,9 @@ $ time preston ls | bzip2 > huge.nq.bz2
 real	22m30.875s
 user	21m24.693s
 sys	4m34.099s
-$ time tdb2.tdbloader --loc hugeindex huge.nq.bz2
+$ time tdbloader --loc hugeindex huge.nq.bz2
 
-$ time tdb2.tdbquery --loc hugeindex --query count.sparql
+$ time tdbquery --loc hugeindex --query count.sparql
 ```
 
 where ```count.sparql``` is :
