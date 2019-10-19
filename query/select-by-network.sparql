@@ -1,0 +1,20 @@
+SELECT ?network ?crawl ?crawl_date ?registry_url ?registry_version ?dataset_uri ?dataset_version ?dataset_generation 
+#SELECT (count(?rss_item_url) as ?count)
+ WHERE {
+   # If you'd like to include only one network, uncomment the network values below.
+   # values ?network { <https://gbif.org> } .
+   ?crawl <http://www.w3.org/ns/prov#wasStartedBy> ?preston .
+   ?crawl <http://www.w3.org/ns/prov#startedAtTime> ?crawl_date .
+   ?registry_url <http://purl.org/pav/createdBy> ?network .
+   ?registry_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?registry_generation .
+   ?registry_generation <http://www.w3.org/ns/prov#used> ?registry_url .
+   ?registry_generation <http://www.w3.org/ns/prov#activity> ?crawl  .
+   
+   OPTIONAL {
+     ?registry_version (<http://www.w3.org/ns/prov#hadMember>|<http://purl.org/pav/hasVersion>|^<http://purl.org/pav/previousVersion>|^<http://purl.org/pav/hasVersion>|<http://purl.org/pav/previousVersion>)* ?dataset_uri .
+     ?dataset_generation <http://www.w3.org/ns/prov#used> ?dataset_uri . 
+     ?dataset_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?dataset_generation . 
+     ?dataset_generation <http://www.w3.org/ns/prov#activity> ?crawl .
+   }
+}
+LIMIT 25
