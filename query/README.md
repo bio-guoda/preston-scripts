@@ -59,6 +59,16 @@ After building an index, the queries can be executed using something like:
 
 Note that the queries are limited to first 25 results, so for full run, please comment that part out.
 
+Example run with timings:
+
+```
+$ time tdbquery --loc hugeindex --query select-idigbio.sparql --results tsv | pv -l | gzip > idigbio.tsv.gz
+55.1k 0:00:07 [7.83k/s] [             <=>                                                                                     ]
+
+real	0m7.093s
+user	0m10.813s
+sys	0m0.485s
+```
 
 
 ## rdf/nq in, rdf/nq out

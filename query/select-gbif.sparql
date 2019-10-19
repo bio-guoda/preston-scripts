@@ -4,7 +4,7 @@ SELECT ?crawl ?crawl_date ?datasets_url ?datasets_version ?pub_uuid ?rss_url ?rs
    values ?verb { <http://www.w3.org/ns/prov#generatedAtTime> } .
    ?crawl <http://www.w3.org/ns/prov#wasStartedBy> ?preston .
    ?crawl <http://www.w3.org/ns/prov#startedAtTime> ?crawl_date .
-   ?datasets_url <http://purl.org/pav/createdBy> <https://gbif.org> .
+   #?datasets_url <http://purl.org/pav/createdBy> <https://gbif.org> .
    ?generation <http://www.w3.org/ns/prov#used> ?datasets_url .
    ?generation <http://www.w3.org/ns/prov#activity> ?crawl  .
    ?datasets_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?generation .
@@ -13,6 +13,7 @@ SELECT ?crawl ?crawl_date ?datasets_url ?datasets_version ?pub_uuid ?rss_url ?rs
    ?rss_gen <http://www.w3.org/ns/prov#used> ?rss_url . 
    ?rss_gen <http://www.w3.org/ns/prov#activity> ?crawl .
    ?rss_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?rss_gen . 
+   FILTER regex(STR(?datasets_url), "https://api.gbif.org/v1/dataset.*", "i") 
    #OPTIONAL { ?rss_url <http://www.w3.org/ns/prov#hadMember> ?data_url .}
 }
-LIMIT 25
+#LIMIT 25
