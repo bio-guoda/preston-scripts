@@ -41,11 +41,13 @@ $ tdbquery --loc index --query first25.sparql --results tsv | tail -n+2
 
 Queries to select generations from individual network can be found at:
 
- * [select-idigbio.sparql](./select-idigbio.sparql)
- * [select-gbif.sparql](./select-gbif.sparql)
- * [select-biocase.sparql](./select-biocase.sparql)
+ * [select-idigbio.sparql](./select-idigbio.sparql) with result [select-idigbio.tsv.gz](./select-idigbio.tsv.gz)
+ * [select-gbif.sparql](./select-gbif.sparql) with result [select-gbif.tsv.gz](./select-gbif.tsv.gz)
+ * [select-biocase.sparql](./select-biocase.sparql) with result [select-biocase.tsv.gz](./select-biocase.tsv.gz)
 
-Note that the "graph" for networks is a little different:
+Note that samples were generated after removing the "LIMIT" causes using preston provenance hash://sha256/ab62f4a9601f30d23353a479830f9d2dfc7898e15d2cc2d81977e898d885c908 or https://deeplinker.bio/ab62f4a9601f30d23353a479830f9d2dfc7898e15d2cc2d81977e898d885c908 . See also https://github.com/bio-guoda/preston/issues/28 . 
+
+Also, note that the "graph" for networks is a little different:
 
 iDigBio - publishers -> publisher uuid -> publisher rss url -> dataset uuid -> dataset url
 
