@@ -1,7 +1,6 @@
 SELECT ?network ?crawl ?crawl_date ?registry_url ?registry_version ?dataset_uri ?dataset_version ?dataset_generation 
  WHERE {
    # If you'd like to include only one network, uncomment the network values below.
-   # Please note that all versions are assumed to be expanded using expand-versions.sparql .
    # values ?network { <https://gbif.org> } .
    # values ?network { <https://idigbio.org> } .
    ?crawl <http://www.w3.org/ns/prov#wasStartedBy> ?preston .
