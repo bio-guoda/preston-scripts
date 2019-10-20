@@ -41,7 +41,7 @@ $ tdbquery --loc index --query first25.sparql --results tsv | tail -n+2
 
 Queries to select generations from networks can be found at:
 
- * [select-by-network.sparql](./select-by-network.sparql) with results [select-by-network-idigbio.tsv.gz](./select-by-network-idigbio.tsv.gz) and [select-by-network-gbif.tsv.gz](./select-by-network-gbif.tsv.gz]
+ * [select-by-network.sparql](./select-by-network.sparql) with results [select-by-network-idigbio.tsv.gz](./select-by-network-idigbio.tsv.gz) and [select-by-network-gbif.tsv.gz](./select-by-network-gbif.tsv.gz)
  * [select-idigbio.sparql](./select-idigbio.sparql) with result [select-idigbio.tsv.gz](./select-idigbio.tsv.gz)
  * [select-gbif.sparql](./select-gbif.sparql) with result [select-gbif.tsv.gz](./select-gbif.tsv.gz)
  * [select-biocase.sparql](./select-biocase.sparql) with result [select-biocase.tsv.gz](./select-biocase.tsv.gz)
