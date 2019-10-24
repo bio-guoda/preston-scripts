@@ -11,7 +11,7 @@ SELECT ?network ?crawl ?crawl_date ?registry_url ?registry_version ?dataset_uri 
    ?registry_generation <http://www.w3.org/ns/prov#activity> ?crawl  .
    
    OPTIONAL {
-     ?registry_version (<http://www.w3.org/ns/prov#hadMember>|<http://purl.org/pav/hasVersion>)+ ?dataset_uri .
+     ?registry_version (<http://www.w3.org/ns/prov#hadMember>|<http://purl.org/pav/hasVersion>|<http://www.w3.org/1999/02/22-rdf-syntax-ns#seeAlso>)+ ?dataset_uri .
      ?dataset_generation <http://www.w3.org/ns/prov#used> ?dataset_uri . 
      ?dataset_version <http://www.w3.org/ns/prov#qualifiedGeneration> ?dataset_generation . 
      ?dataset_generation <http://www.w3.org/ns/prov#activity> ?crawl .
