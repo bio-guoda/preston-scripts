@@ -9,4 +9,4 @@ function hash2ia {
 
 /usr/local/bin/preston history -l tsv | grep Version | cut -f1,3 | tr '\t' '\n' | grep -v "deeplinker\.bio/\.well-known/genid" | sort | uniq | grep "hash://sha256" | hash2ia 
 
-/usr/local/bin/preston ls -l tsv | grep Version | cut -f1,3 | tr '\t' '\n' | grep -v "deeplinker\.bio/\.well-known/genid" | grep "hash://sha256" | head | sort | uniq | hash2ia 
+/usr/local/bin/preston ls -l tsv | grep Version | cut -f1,3 | tr '\t' '\n' | grep -v "deeplinker\.bio/\.well-known/genid" | grep "hash://sha256" | sort | uniq | hash2ia 
