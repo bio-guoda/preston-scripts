@@ -6,7 +6,7 @@
 #   ./register_with_hash_archive.sh [number of recent provenance versions to register]
 # 
 
-set -x
+#set -x
 
 if [[ $1 -gt 0 ]]
 then
