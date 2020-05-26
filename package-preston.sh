@@ -24,7 +24,7 @@ if [ -f package-preston.config ]; then
 fi
 
 DATE_RANGE_START=$(preston ls -l tsv | grep "prov#generatedAtTime" | cut -f3 | head -n1 | xargs -I {} date --iso-8601 -d {})
-DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n1 | xargs preston cat | grep "prov#generatedAtTime" | cut -f3 | tail -n1 | xargs -I {} date --iso-8601 -d {})
+DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n2 | head -n1 | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
 LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n2 | head -n1)
 PRESTON_HISTORY=$(preston history) 
 
