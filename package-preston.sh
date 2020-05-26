@@ -28,7 +28,7 @@ DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n2 | 
 LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n2 | head -n1)
 PRESTON_HISTORY=$(preston history) 
 
-PRESTON_VERIFY_HEAD=$(preston verify | head -n4) 
+PRESTON_VERIFY_HEAD="replace wwith preston verify | head -n4"
 
 PRESTON_VERSION=$(preston version)
 
