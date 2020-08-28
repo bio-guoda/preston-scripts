@@ -21,4 +21,4 @@ PROV_HASHES=$(/usr/local/bin/preston history -l tsv | cut -f1,3 | tr '\t' '\n' |
 
 echo $PROV_HASHES | tr ' ' '\n' | sort | uniq | sed -e 's+hash://sha256+https://deeplinker.bio+g' | sed -e 's+^+https://hash-archive.org/api/enqueue/+g' | xargs -L1 curl 
 
-echo $PROV_HASHES | tr ' ' '\n' | xargs -L1 /usr/local/bin/preston cat | grep Version | cut -d' ' -f3 | sed -E $'s/^<//' | sed -E $'s/[> .]*//' | grep -v "deeplinker\.bio/\.well-known/genid" | sort | uniq | sed -e 's+hash://sha256+https://deeplinker.bio+g' | sed -e 's+^+https://hash-archive.org/api/enqueue/+g' | xargs -L1 curl 
+echo $PROV_HASHES | tr ' ' '\n' | xargs -L1 /usr/local/bin/preston cat | grep Version | cut -d' ' -f3 | sed -E $'s+^<++g' | sed -E $'s+[> .]*++g' | grep -v "deeplinker\.bio/\.well-known/genid" | sort | uniq | sed -e 's+hash://sha256+https://deeplinker.bio+g' | sed -e 's+^+https://hash-archive.org/api/enqueue/+g' | xargs -L1 curl 
