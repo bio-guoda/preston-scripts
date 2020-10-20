@@ -1,4 +1,5 @@
 #!/bin/bash
+# Date: 2020-10-20
 #
 # List *exact* locations of email adresses in biodiversity archive using
 # Preston "match" and a regular expression.
@@ -16,17 +17,23 @@
 #   $ preston cat hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b | cut -b2782-2799
 #   gsautter@gmail.com
 #
-# Date: 2020-10-20
 #
 # Requirements:
 #   - Preston >v0.2.0
 #   - Internet connection
+#
+# For more information, see https://preston.guoda.bio .
+#
+# Note: 
+# This script does not retain the streamed biodiversity data content to prevent flooding your harddisk. 
+# If you'd like to keep a local copy to make the subsequent runs faster, remove the --no-cache options.
+#
 set -xe
 
-preston ls --remote https://deeplinker.bio | preston match -l tsv "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | cut -f1,3 | grep -E "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" 
+preston ls --no-cache --remote https://zenodo.org/record/3852671/files/,https://deeplinker.bio | preston match --no-cache --remote https://archive.org/download/biodiversity-dataset-archives/data.zip/data/,https://deeplinker.bio -l tsv "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | cut -f1,3 | grep -E "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" 
 
 # expected output:
-# $ preston ls | pv -l | preston match -l tsv "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | cut -f1,3 | grep -E "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | head
+# $ preston ls --no-cache --remote https://deeplinker.bio | pv -l | preston match -l --remote  tsv "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | cut -f1,3 | grep -E "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | head
 # cut:hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b!/b2782-2799  gsautter@gmail.com                       ]
 # cut:hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b!/b3092-3107	info@pensoft.net
 # cut:hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b!/b3528-3541	info@plazi.org
