@@ -1,8 +1,20 @@
 #!/bin/bash
 # Date: 2020-10-20
 #
-# List *exact* locations of email adresses in biodiversity archive using
-# Preston "match" and a regular expression.
+# ./match-emails.sh [optional regex]
+#
+# Streams *exact* content-based locations of email adresses mentioned in biodiversity archives
+# registered in GBIF, iDigBio, BioCASe over period 2018-2020 in chronological order.
+#
+# This script streams a seemingly endless list of email addresses from >500GB biodiversity dataset 
+# data using linked Preston tracking logs and versioned content stored across Zenodo, Internet Archive 
+# and a hosted server at https://deeplinker.bio .
+#
+# You can provide any other regex to override the simple default regular expression matching email addresses.
+#
+# Output: 
+#    A two column table with a location and and associated email address:
+#       [location]\t[matched content]
 #
 # location syntax:
 #   cut:([optional archive prefix]:)hash://sha256/[content id](!/[optional archive path])!/b[start byte]-[end byte]
@@ -19,7 +31,7 @@
 #
 #
 # Requirements:
-#   - Preston >v0.2.0
+#   - Preston >=v0.2.2
 #   - Internet connection
 #
 # For more information, see https://preston.guoda.bio .
