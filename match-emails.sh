@@ -35,8 +35,8 @@ REGEX_ARCTOS='http://arctos.database.museum/guid/[a-zA-Z]+:[a-zA-Z]+:[^ \t\n,?;]
 REGEX_ARCTOS_LINKED='(?<subject>$REGEX_ARCTOS).*\((?<verb>[a-zA-Z ]+)\)\s(?<collection>[a-zA-Z]+:[^\s,]+)\s(?<object>$REGEX_ARCTOS)'
 REGEX=${0:=$REGEX_EMAIL}
 
-preston ls --no-cache --remote https://zenodo.org/record/3852671/files/,https://deeplinker.bio\
-| preston match --no-cache --remote https://archive.org/download/biodiversity-dataset-archives/data.zip/data/,https://deeplinker.bio -l tsv '$REGEX'\
+preston ls --no-cache --remote https://zenodo.org/record/3852671/files/,https://deeplinker.bio \
+| preston match --no-cache --remote https://archive.org/download/biodiversity-dataset-archives/data.zip/data/,https://deeplinker.bio -l tsv '$REGEX' \
 | cut -f1,3 \
 | grep -E '$REGEX'
 
