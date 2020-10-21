@@ -30,10 +30,15 @@
 #
 set -xe
 
-preston ls --no-cache --remote https://zenodo.org/record/3852671/files/,https://deeplinker.bio | preston match --no-cache --remote https://archive.org/download/biodiversity-dataset-archives/data.zip/data/,https://deeplinker.bio -l tsv "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | cut -f1,3 | grep -E "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" 
+REGEX_EMAIL="[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}"
+REGEX_ARCTOS='http://arctos.database.museum/guid/[a-zA-Z]+:[a-zA-Z]+:[^ \t\n,"?;]+'
+REGEX_ARCTOS_LINKED='(?<subject>$REGEX_ARCTOS).*\((?<verb>[a-zA-Z ]+)\)\s(?<collection>[a-zA-Z]+:[^\s,"]+)\s(?<object>$REGEX_ARCTOS)'
+REGEX=${0:=$REGEX_EMAIL}
+
+preston ls --no-cache --remote https://zenodo.org/record/3852671/files/,https://deeplinker.bio | preston match --no-cache --remote https://archive.org/download/biodiversity-dataset-archives/data.zip/data/,https://deeplinker.bio -l tsv '$REGEX' | cut -f1,3 | grep -E '$REGEX'
 
 # expected output:
-# $ preston ls --no-cache --remote https://deeplinker.bio | pv -l | preston match -l --remote  tsv "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | cut -f1,3 | grep -E "[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}" | head
+# $ preston ls --no-cache --remote https://deeplinker.bio | pv -l | preston match -l --remote  tsv "$MATCH_REGEX" | cut -f1,3 | grep -E "$MATCH_REGEX" | head
 # cut:hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b!/b2782-2799  gsautter@gmail.com                       ]
 # cut:hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b!/b3092-3107	info@pensoft.net
 # cut:hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b!/b3528-3541	info@plazi.org
