@@ -26,7 +26,7 @@
 # 
 # compatible with universally available POSIX "cut" command https://www.man7.org/linux/man-pages/man1/cut.1p.html :
 #
-#   $ preston cat hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b | cut -b2782-2799
+#   $ preston cat hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b | cut -z -b2782-2799
 #   gsautter@gmail.com
 #
 #
