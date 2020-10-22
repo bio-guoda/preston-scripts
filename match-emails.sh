@@ -40,7 +40,7 @@
 # This script does not retain the streamed biodiversity data content to prevent flooding your harddisk. 
 # If you'd like to keep a local copy to make the subsequent runs faster, remove the --no-cache options.
 #
-set -xe
+#set -xe
 
 REGEX_EMAIL="[a-zA-Z0-9_.+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}"
 REGEX_ARCTOS='http://arctos.database.museum/guid/[a-zA-Z]+:[a-zA-Z]+:[^ \t\n,?;]+'
