@@ -86,3 +86,28 @@ receiving a message
 $ sudo -u kafka /var/lib/kafka/kafka-current/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic email --from-beginning
 email	hash://sha256/f55bcfe2fecb108d11246b00ce3ba1a207db2b21a2f143f93e75be45299a66c1
 ```
+
+
+---- 
+
+With neat commandline tools ```kafkacat```
+see https://github.com/edenhill/kafkacat
+
+install
+```
+sudo apt install kafkacat
+```
+
+### consuming messages
+$ kafkacat -b localhost:9092 -t email
+% Auto-selecting Consumer mode (use -P or -C to override)
+email	hash://sha256/f55bcfe2fecb108d11246b00ce3ba1a207db2b21a2f143f93e75be45299a66c1
+email	hash://sha256/f55bcfe2fecb108d11246b00ce3ba1a207db2b21a2f143f93e75be45299a66c1
+% Reached end of topic email [0] at offset 2
+
+
+### sending messages
+```
+$ echo -e "email\thash://sha256/f55bcfe2fecb108d11246b00ce3ba1a207db2b21a2f143f93e75be45299a66c1" | kafkacat -b localhost:9092 -t email
+% Auto-selecting Producer mode (use -P or -C to override)
+```
