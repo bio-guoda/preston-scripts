@@ -51,7 +51,7 @@ After=zookeeper.service
 [Service]
 Type=simple
 User=kafka
-ExecStart=/bin/sh -c '/var/lib/kafka/kafka-current/bin/kafka-server-start.sh /var/lib/kafka/kafka-current/config/server.properties > /var/lib/kafka/kafka-current/kafka.log 2>&1'
+ExecStart=/bin/sh -c '/var/lib/kafka/kafka-current/bin/kafka-server-start.sh /var/lib/kafka/config/server.properties'
 ExecStop=/var/lib/kafka/kafka-current/bin/kafka-server-stop.sh
 Restart=on-abnormal
 
@@ -68,9 +68,9 @@ sudo systemctl enable kafka.service
 ----
 creating topics
 
-sudo -u kafka /var/lib/kafka/kafka-current/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic email
+sudo -u kafka /var/lib/kafka/kafka-current/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic email --config cleanup.policy=compact --config delete.retention.ms=100 --config segment.ms=100 --config min.cleanable.dirty.ratio=0.01
 
-sudo -u kafka /var/lib/kafka/kafka-current/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic arctos
+sudo -u kafka /var/lib/kafka/kafka-current/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic arctos --config cleanup.policy=compact --config delete.retention.ms=100 --config segment.ms=100 --config min.cleanable.dirty.ratio=0.01
 
 
 sending message
