@@ -13,16 +13,31 @@
 #   curl 'localhost:8080/cat/hash://sha256/abc...'
 # 
 
+REMOTES=${1:-file://$(pwd)/data}
+
 read -r REQUEST_METHOD REQUEST_URI REQUEST_HTTP_VERSION
 
-IFS=/ read -r _ cmd args <<<"$REQUEST_URI"
+IFS=/ read -r CMD ARGS <<<"${REQUEST_URI////}"
 
-cat <<HEADER
-HTTP/1.1 200 OK
-Content-Type: application/octet-stream
-HEADER
+# Decide how to handle the request
+STATUS="200 OK"
+case "$CMD$ARGS" in
+    version|history|ls)
+        HEADER="Content-type: text/plain;charset=UTF-8"
+        ;;
+    get$ARGS|cat$ARGS)
+        HEADER="Content-type: application/octet-stream"
+        OPTIONS="--no-cache --remote $REMOTES"
+        ;;
+    *)
+        STATUS="400 Bad Request"
+        FAIL=true
+        ;;
+esac
 
+# Send a response
+echo "HTTP/1.1 $STATUS"
+[ -n "$HEADER" ] && echo "$HEADER"
 echo
-
-preston $cmd $args
+[ -z "$FAIL" ] && preston $OPTIONS $CMD $ARGS
 
