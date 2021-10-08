@@ -35,7 +35,7 @@ PRESTON_VERSION=$(preston version)
 mkdir -p $PWD/tmp/provindex
 TMPDIR=$(mktemp -d -p $PWD/tmp)
 cp $(which preston) $TMPDIR/preston.jar
-preston cp --type provindex $TMPDIR/provindex
+preston cp --type provindex -p directoryDepth0 $TMPDIR/provindex
 
 PRESTON_PROV_INDEX=$(ls -1 $TMPDIR/provindex)
 
