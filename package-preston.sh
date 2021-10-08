@@ -71,7 +71,7 @@ Files in this data publication:
 -- description of archive and its contents (this file) --
 README 
 
--- executable java jar containing preston[2] v${PRESTON_VERSION}. --
+-- executable java jar containing preston [2,3] v${PRESTON_VERSION}. --
 preston.jar
 
 -- preston archives containing ${NETWORK_NAME} data files, associated provenance logs and a provenance index --
@@ -87,9 +87,10 @@ References
 
 [1] ${NETWORK_LONGNAME} (${NETWORK_NAME}, ${PRESTON_NETWORK_SEED}) accessed from ${DATE_RANGE_START} to ${DATE_RANGE_END} with provenance ${LAST_PROVENANCE_VERSION}.
 [2] https://preston.guoda.bio, https://doi.org/10.5281/zenodo.1410543 . 
+[3] MJ Elliott, JH Poelen, JAB Fortes (2020). Toward Reliable Biodiversity Dataset References. Ecological Inform$
 
 
-This work is funded in part by grant NSF OAC 1839201 from the National Science Foundation.
+This work is funded in part by grant NSF OAC 1839201 and NSF DBI 2102006 from the National Science Foundation.
 EOF
 
 mv $TMPDIR/provindex/* $TMPDIR
