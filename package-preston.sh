@@ -26,7 +26,7 @@ fi
 DATE_RANGE_START=$(preston history -l tsv | tr '\t' '\n' | grep hash | head -n1  | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
 DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n2 | head -n1 | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
 LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n2 | head -n1)
-PRESTON_HISTORY=$(preston history) 
+PRESTON_HISTORY=$(preston history --log tsv) 
 
 PRESTON_VERIFY_HEAD="replace wwith preston verify | head -n4"
 
@@ -54,7 +54,7 @@ $ java -jar preston.jar clone --remote ${PRESTON_REMOTE_URL}
 
 After that, verify the index of the archive by reproducing the following provenance log history:
 
-$ java -jar preston.jar history
+$ java -jar preston.jar history --log tsv
 ${PRESTON_HISTORY}
 
 To check the integrity of the extracted archive, confirm that each line produce by the command "preston verify" produces lines as shown below, with each line including "CONTENT_PRESENT_VALID_HASH". Depending on hardware capacity, this may take a while.
