@@ -24,7 +24,7 @@ if [ -f package-preston.config ]; then
 fi
 
 DATE_RANGE_START=$(preston history -l tsv | tr '\t' '\n' | grep hash | head -n1  | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
-DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n2 | head -n1 | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
+DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
 LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n2 | head -n1)
 PRESTON_HISTORY=$(preston history --log tsv) 
 
@@ -35,9 +35,11 @@ PRESTON_VERSION=$(preston version)
 mkdir -p $PWD/tmp/provindex
 TMPDIR=$(mktemp -d -p $PWD/tmp)
 cp $(which preston) $TMPDIR/preston.jar
-preston cp --type provindex -p directoryDepth0 $TMPDIR/provindex
+preston cp -p directoryDepth0 $TMPDIR/data
 
-PRESTON_PROV_INDEX=$(ls -1 $TMPDIR/provindex)
+PRESTON_FILE_LIST=$(ls -1 $TMPDIR/data)
+
+mv $TMPDIR/data $TMPDIR
 
 envsubst >$TMPDIR/README <<EOF
 A biodiversity dataset graph: ${NETWORK_NAME}
@@ -46,9 +48,9 @@ The intended use of this archive is to facilitate (meta-)analysis of the ${NETWO
 
 This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2,3] between ${DATE_RANGE_START} and ${DATE_RANGE_END} using "preston update -u ${PRESTON_NETWORK_SEED}". 
 
-The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. In addition, index files have been individually included in this dataset publication to facilitate remote access. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543 .  
+The archive consists of individual files with hexadecimal filenames (e.g., $(PRESTON_FILE_LIST | head -n1)) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543 .  
 
-To retrieve and verify the downloaded ${NETWORK_NAME} biodiversity dataset graph, first concatenate all the downloaded preston-*.tar.gz files (e.g., cat preston-*.tar.gz > preston.tar.gz). Then, extract the archives into a "data" folder. Alternatively, you can use the preston[2] command-line tool to "clone" this dataset using:
+To retrieve and verify the downloaded ${NETWORK_NAME} biodiversity dataset graph, download all files. Then, extract the archives into a "data" folder. Alternatively, you can use the preston[2] command-line tool to "clone" this dataset using:
 
 $ java -jar preston.jar clone --remote ${PRESTON_REMOTE_URL}
 
@@ -75,10 +77,7 @@ README
 preston.jar
 
 -- preston archives containing ${NETWORK_NAME} data files, associated provenance logs and a provenance index --
-preston-[00-ff].tar.gz 
-
--- individual provenance index files --
-${PRESTON_PROV_INDEX}
+${PRESTON_FILE_LIST} 
 
 --- end of file descriptions ---
 
@@ -92,20 +91,5 @@ References
 
 This work is funded in part by grant NSF OAC 1839201 and NSF DBI 2102006 from the National Science Foundation.
 EOF
-
-mv $TMPDIR/provindex/* $TMPDIR
-
-mkdir -p $TMPDIR/old-tars
-mv data/*.tar.gz $TMPDIR/old-tars || true
-
-echo packaging tar.gz files...
-ls -1 data/ | grep -P "^[0-9a-f]{2}$" | xargs -I {} sh -c "cd data && tar cvz {} > preston-{}.tar.gz"
-
-mv data/preston*.tar.gz $TMPDIR
-mv $TMPDIR/old-tars/* data/ || true
-rm -rf $TMPDIR/old-tars 
-rm -rf $TMPDIR/provindex
-
-ls -1 $TMPDIR
 
 echo Zenodo-friendly Preston pub available in [$TMPDIR]
