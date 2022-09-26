@@ -39,7 +39,7 @@ preston cp -p directoryDepth0 $TMPDIR/data
 
 PRESTON_FILE_LIST=$(ls -1 $TMPDIR/data)
 
-mv $TMPDIR/data $TMPDIR
+mv $TMPDIR/data/* $TMPDIR
 
 envsubst >$TMPDIR/README <<EOF
 A biodiversity dataset graph: ${NETWORK_NAME}
