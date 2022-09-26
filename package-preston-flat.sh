@@ -39,7 +39,7 @@ preston cp -p directoryDepth0 $TMPDIR/data
 
 PRESTON_FILE_LIST=$(ls -1 $TMPDIR/data)
 
-cp $TMPDIR/data/* $TMPDIR
+mv $TMPDIR/data/* $TMPDIR
 
 envsubst >$TMPDIR/README <<EOF
 A biodiversity dataset graph: ${NETWORK_NAME}
@@ -48,7 +48,7 @@ The intended use of this archive is to facilitate (meta-)analysis of the ${NETWO
 
 This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2,3] between ${DATE_RANGE_START} and ${DATE_RANGE_END} using "preston update -u ${PRESTON_NETWORK_SEED}". 
 
-The archive consists of individual files with hexadecimal filenames (e.g., $(PRESTON_FILE_LIST | head -n1)) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543 .  
+The archive consists of individual files with hexadecimal filenames (e.g., $(echo ${PRESTON_FILE_LIST} | head -n1)) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543 .  
 
 To retrieve and verify the downloaded ${NETWORK_NAME} biodiversity dataset graph, download all files. Then, extract the archives into a "data" folder. Alternatively, you can use the preston[2] command-line tool to "clone" this dataset using:
 
