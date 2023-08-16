@@ -25,10 +25,10 @@ fi
 
 DATE_RANGE_START=$(preston history -l tsv | tr '\t' '\n' | grep hash | head -n1  | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
 DATE_RANGE_END=$(preston history -l tsv | tr '\t' '\n' | grep hash | tail -n2 | head -n1 | xargs preston cat | grep "prov#generatedAtTime" | tail -n1 | cut -d ' ' -f3 | cut -d '^' -f1 | xargs -I {} date --iso-8601 -d {})
-LAST_PROVENANCE_VERSION=$(preston history -l tsv | tr '\t' '\n' | grep "hash:" | tail -n2 | head -n1)
+LAST_PROVENANCE_VERSION=$(preston head)
 PRESTON_HISTORY=$(preston history --log tsv) 
 
-PRESTON_VERIFY_HEAD="replace wwith preston verify | head -n4"
+PRESTON_VERIFY_HEAD="replace with preston verify | head -n4"
 
 PRESTON_VERSION=$(preston version)
 
@@ -44,7 +44,7 @@ A biodiversity dataset graph: ${NETWORK_NAME}
 
 The intended use of this archive is to facilitate (meta-)analysis of the ${NETWORK_LONGNAME} (${NETWORK_NAME}). ${NETWORK_DESCRIPTION} 
 
-This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2,3] between ${DATE_RANGE_START} and ${DATE_RANGE_END} using "preston update -u ${PRESTON_NETWORK_SEED}". 
+This dataset provides versioned snapshots of the ${NETWORK_NAME} network as tracked by Preston [2,3,4] between ${DATE_RANGE_START} and ${DATE_RANGE_END} using "preston update -u ${PRESTON_NETWORK_SEED}". 
 
 The archive consists of 256 individual parts (e.g., preston-00.tar.gz, preston-01.tar.gz, ...) to allow for parallel file downloads. The archive contains three types of files: index files, provenance logs and data files. In addition, index files have been individually included in this dataset publication to facilitate remote access. Index files provide a way to links provenance files in time to establish a versioning mechanism. Provenance files describe how, when, what and where the ${NETWORK_NAME} content was retrieved. For more information, please visit https://preston.guoda.bio or https://doi.org/10.5281/zenodo.1410543 .  
 
@@ -88,6 +88,8 @@ References
 [1] ${NETWORK_LONGNAME} (${NETWORK_NAME}, ${PRESTON_NETWORK_SEED}) accessed from ${DATE_RANGE_START} to ${DATE_RANGE_END} with provenance ${LAST_PROVENANCE_VERSION}.
 [2] https://preston.guoda.bio, https://doi.org/10.5281/zenodo.1410543 . 
 [3] MJ Elliott, JH Poelen, JAB Fortes (2020). Toward Reliable Biodiversity Dataset References. Ecological Informatics. https://doi.org/10.1016/j.ecoinf.2020.101132
+[4] MJ Elliott, JH Poelen, JAB Fortes (2023). Signing data citations enables data verification and citation persistence. Scientific Data. https://doi.org/10.1038/s41597-023-02230-y
+
 
 
 This work is funded in part by grant NSF OAC 1839201 and NSF DBI 2102006 from the National Science Foundation.
